@@ -12,6 +12,20 @@ public class TextExcel
 {
 
 	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		String command = "";
+		Spreadsheet sheet = new Spreadsheet();
+		while(true) {
+			command = input.nextLine();
+			if(command.equalsIgnoreCase("quit")) {
+				break;
+			}
+			System.out.println(sheet.processCommand(command));
+		}
 		
+		/*
+		SpreadsheetLocation temp = new SpreadsheetLocation("A1");
+		System.out.println(temp.getRow());
+		*/
 	}
 }

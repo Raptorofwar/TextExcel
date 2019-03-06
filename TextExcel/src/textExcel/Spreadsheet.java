@@ -5,38 +5,44 @@ package textExcel;
 public class Spreadsheet implements Grid
 {
 
+	private Cell[][] grid;
+	
+	public Spreadsheet() {
+		grid = new Cell[20][12];
+	}
+	
 	@Override
 	public String processCommand(String command)
 	{
-		// TODO Auto-generated method stub
+		// processes a user command, returns string to display, must be called in loop from main
 		return null;
 	}
 
 	@Override
 	public int getRows()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		// returns number of rows in grid
+		return 20;
 	}
 
 	@Override
 	public int getCols()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		// returns number of columns in grid
+		return 12;
 	}
 
 	@Override
 	public Cell getCell(Location loc)
 	{
-		// TODO Auto-generated method stub
+		// returns cell at loc
 		return null;
 	}
 
 	@Override
 	public String getGridText()
 	{
-		// TODO Auto-generated method stub
+		// returns entire grid, formatted as text for display
 		return null;
 	}
 
