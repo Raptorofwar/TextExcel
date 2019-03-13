@@ -12,7 +12,7 @@ public class TextExcel
 {
 
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
+		/*Scanner input = new Scanner(System.in);
 		String command = "";
 		Spreadsheet sheet = new Spreadsheet();
 		while(true) {
@@ -21,7 +21,9 @@ public class TextExcel
 				break;
 			}
 			System.out.println(sheet.processCommand(command));
-		}
+		}*/
+		Spreadsheet fuck = new Spreadsheet();
+		System.out.print(fuck.getGridText());
 		
 		/*
 		SpreadsheetLocation temp = new SpreadsheetLocation("A1");

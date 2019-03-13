@@ -6,7 +6,7 @@ public class EmptyCell implements Cell{
 	
 	public String abbreviatedCellText() {
 		// text for spreadsheet cell display, must be exactly length 10
-		return content;
+		return "          ";
 	}
 	
 	public String fullCellText() {

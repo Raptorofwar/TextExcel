@@ -25,5 +25,10 @@ public class SpreadsheetLocation implements Location
     	colNum = command.charAt(0) - ('A');
     	rowNum = Integer.parseInt(command.substring(1)) - 1;
     }
+    
+    public SpreadsheetLocation(int row, int col){
+    	rowNum = row;
+    	colNum = col;
+    }
 
 }
