@@ -1,21 +1,15 @@
 package textExcel;
 
-// Update this file with your own code.
-
 public class Spreadsheet implements Grid
 {
 
-	private Cell[][] grid;
+	private Cell[][] sheet;
 	private final int numRows = 20;
 	private final int numCols = 12;
 	
 	public Spreadsheet() {
-		grid = new Cell[numRows][numCols];
-		for(int rows = 0; rows < getRows(); rows++) {
-			for(int cols = 0; cols < getCols(); cols++) {
-				grid[rows][cols] = new EmptyCell();
-			}
-		}
+		sheet = new Cell[numRows][numCols];
+		clearAll(sheet);
 	}
 	
 	@Override
@@ -23,6 +17,19 @@ public class Spreadsheet implements Grid
 	{
 		// processes a user command, returns string to display, must be called in loop from main
 		String result = "";
+    	String[] commandText = command.split(" ");
+    	SpreadsheetLocation loc;
+    	if(commandText[0].equalsIgnoreCase("clear")) {
+    		if(commandText.length == 1) {
+    			clearAll(sheet);
+    		}else {
+    			loc = new SpreadsheetLocation(commandText[1]);
+    			sheet[loc.getRow()][loc.getCol()] = new EmptyCell();
+    		}
+    	}else {
+    		loc = new SpreadsheetLocation(commandText[0]);
+    		sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[2]);
+    	}
 		return result;
 	}
 
@@ -43,7 +50,7 @@ public class Spreadsheet implements Grid
 	@Override
 	public Cell getCell(Location loc) {
 		// returns cell at loc
-		return grid[loc.getRow()][loc.getCol()];
+		return sheet[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
@@ -65,11 +72,19 @@ public class Spreadsheet implements Grid
 			}
 			printGrid += "|";
 			for(int cols = 0; cols < getCols(); cols++) {
-				printGrid += grid[rows][cols].abbreviatedCellText();
+				printGrid += sheet[rows][cols].abbreviatedCellText();
 				printGrid += "|";
 			}
 		}
 		return printGrid;
+	}
+	
+	public void clearAll(Cell[][] grid) {
+		for(int rows = 0; rows < getRows(); rows++) {
+			for(int cols = 0; cols < getCols(); cols++) {
+				grid[rows][cols] = new EmptyCell();
+			}
+		}
 	}
 
 }

@@ -27,6 +27,7 @@ public class SpreadsheetLocation implements Location
     }
     
     public SpreadsheetLocation(int row, int col){
+    	//retained for easy coding?
     	rowNum = row;
     	colNum = col;
     }

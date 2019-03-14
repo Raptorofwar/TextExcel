@@ -21,9 +21,10 @@ public class TextExcel
 				break;
 			}
 			System.out.println(sheet.processCommand(command));
+			
 		}*/
-		Spreadsheet fuck = new Spreadsheet();
-		System.out.print(fuck.getGridText());
+		/*Spreadsheet fuck = new Spreadsheet();
+		System.out.print(fuck.getGridText());*/
 		
 		/*
 		SpreadsheetLocation temp = new SpreadsheetLocation("A1");
