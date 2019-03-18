@@ -22,15 +22,22 @@ public class Spreadsheet implements Grid
     	if(commandText[0].equalsIgnoreCase("clear")) {
     		if(commandText.length == 1) {
     			clearAll(sheet);
+    			return this.getGridText();
     		}else {
     			loc = new SpreadsheetLocation(commandText[1]);
     			sheet[loc.getRow()][loc.getCol()] = new EmptyCell();
+    			return this.getGridText();
     		}
     	}else {
     		loc = new SpreadsheetLocation(commandText[0]);
-    		sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[2]);
+    		System.out.println("loc");
+    		if(commandText.length > 1 && commandText[1] == "=") {
+    			sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[2]);
+    			return this.getGridText();
+    		}else {
+    			return this.getCell(loc).fullCellText();
+    		}
     	}
-		return result;
 	}
 
 	@Override
