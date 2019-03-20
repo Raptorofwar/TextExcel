@@ -17,22 +17,21 @@ public class Spreadsheet implements Grid
 	{
 		// processes a user command, returns string to display, must be called in loop from main
 		String result = "";
-    	String[] commandText = command.split(" ");
     	SpreadsheetLocation loc;
-    	if(commandText[0].equalsIgnoreCase("clear")) {
-    		if(commandText.length == 1) {
+    	if(command.length() >= 5 && command.substring(0,5).equalsIgnoreCase("clear")) {
+    		if(command.length() == 5) {
     			clearAll(sheet);
     			return this.getGridText();
     		}else {
-    			loc = new SpreadsheetLocation(commandText[1]);
+    			loc = new SpreadsheetLocation(command.substring(6));
     			sheet[loc.getRow()][loc.getCol()] = new EmptyCell();
     			return this.getGridText();
     		}
     	}else {
+    		String commandText[] = command.split(" = ");
     		loc = new SpreadsheetLocation(commandText[0]);
-    		System.out.println("loc");
-    		if(commandText.length > 1 && commandText[1] == "=") {
-    			sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[2]);
+    		if(commandText.length == 2) {
+    			sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[1]);
     			return this.getGridText();
     		}else {
     			return this.getCell(loc).fullCellText();

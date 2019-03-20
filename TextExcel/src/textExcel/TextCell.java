@@ -7,13 +7,7 @@ public class TextCell implements Cell{
 	
 	public TextCell(String text) {
 		fullText = text;
-		for(int i = 0; i < 10; i++) {
-			if(text.charAt(i) > 0) {
-				abbrevText += text.substring(i, i + 1);
-			}else {
-				abbrevText += " ";
-			}
-		}
+		abbrevText = (fullText.substring(1, fullText.length() - 1) + "          ").substring(0, 10);
 	}
 	
 	public String abbreviatedCellText() {
