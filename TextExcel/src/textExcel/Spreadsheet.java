@@ -28,12 +28,13 @@ public class Spreadsheet implements Grid
     			return this.getGridText();
     		}
     	}else {
-    		String commandText[] = command.split(" = ");
-    		loc = new SpreadsheetLocation(commandText[0]);
-    		if(commandText.length == 2) {
-    			sheet[loc.getRow()][loc.getCol()] = new TextCell(commandText[1]);
+    		if(command.indexOf(" = ") > 0) {
+    			loc = new SpreadsheetLocation(command.substring(0, command.indexOf(" = ")));
+    			sheet[loc.getRow()][loc.getCol()]
+    					= new TextCell(command.substring(command.indexOf("\""), command.lastIndexOf("\"") + 1));
     			return this.getGridText();
     		}else {
+    			loc = new SpreadsheetLocation(command.substring(0));
     			return this.getCell(loc).fullCellText();
     		}
     	}
@@ -82,6 +83,7 @@ public class Spreadsheet implements Grid
 				printGrid += "|";
 			}
 		}
+		printGrid += "\n";
 		return printGrid;
 	}
 	
