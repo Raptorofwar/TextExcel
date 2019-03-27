@@ -16,27 +16,34 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{
 		// processes a user command, returns string to display, must be called in loop from main
-		String result = "";
     	SpreadsheetLocation loc;
     	if(command.length() >= 5 && command.substring(0,5).equalsIgnoreCase("clear")) {
     		if(command.length() == 5) {
     			clearAll(sheet);
-    			return this.getGridText();
     		}else {
     			loc = new SpreadsheetLocation(command.substring(6));
     			sheet[loc.getRow()][loc.getCol()] = new EmptyCell();
-    			return this.getGridText();
     		}
-    	}else {
-    		if(command.indexOf(" = ") > 0) {
-    			loc = new SpreadsheetLocation(command.substring(0, command.indexOf(" = ")));
+			return this.getGridText();
+    	}else if (command.indexOf(" = ") > 0){
+			loc = new SpreadsheetLocation(command.substring(0, command.indexOf(" = ")));
+    		if(command.indexOf("\"") > -1) {
     			sheet[loc.getRow()][loc.getCol()]
-    					= new TextCell(command.substring(command.indexOf("\""), command.lastIndexOf("\"") + 1));
-    			return this.getGridText();
+    					= new TextCell(command.substring(command.indexOf(" = ") + 3));
+    		}else if(command.indexOf("%") > -1) {
+    			sheet[loc.getRow()][loc.getCol()]
+    					= new PercentCell(command.substring(command.indexOf(" = ") + 3));
+    		}else if (command.indexOf("(") > -1) {
+    			sheet[loc.getRow()][loc.getCol()]
+    					=new FormulaCell(command.substring(command.indexOf(" = ") + 3));
     		}else {
+    			sheet[loc.getRow()][loc.getCol()]
+    					=new ValueCell(command.substring(command.indexOf(" = ") + 3));
+    		}
+			return this.getGridText();
+    	}else {
     			loc = new SpreadsheetLocation(command.substring(0));
     			return this.getCell(loc).fullCellText();
-    		}
     	}
 	}
 
