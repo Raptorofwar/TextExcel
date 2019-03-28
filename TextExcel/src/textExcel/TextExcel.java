@@ -24,12 +24,5 @@ public class TextExcel
 			System.out.println(sheet.processCommand(command));
 			
 		}
-		/*Spreadsheet fuck = new Spreadsheet();
-		System.out.print(fuck.getGridText());*/
-		
-		/*
-		SpreadsheetLocation temp = new SpreadsheetLocation("A1");
-		System.out.println(temp.getRow());
-		*/
 	}
 }
