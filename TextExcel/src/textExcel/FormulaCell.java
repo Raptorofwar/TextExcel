@@ -3,37 +3,18 @@ package textExcel;
 public class FormulaCell extends RealCell{
 	
 	public FormulaCell(String input) {
+		
+		//only the input text is useful here; the actual value inputted is just filler
+		
 		super(input, -1);
 	}
 	
 	public double getDoubleValue(){
-		int posStartParen = -1;
-    	int posFinParen = -1;
+    	
+		//Takes in entire formula, returns double equivalent
+		
     	String[] expression =
-    			super.fullCellText().substring(1, super.fullCellText().length() - 1).split(" ");
-    	int position = 0;
-    	do {
-    		if(expression[position].equals("(")) {
-    			posStartParen = position;
-    		}else if(expression[position].equals(")")) {
-    			posFinParen = position;
-    		}
-    		if(posStartParen >= 0 && posFinParen >= 0) {
-    			int length = posFinParen - posStartParen - 1;
-    			String[] miniArray = new String[length];
-    			for(int i = posStartParen + 1; i < posFinParen; i++) {
-    				miniArray[i - posStartParen - 1] = expression[i];
-    			}
-    			expression[posStartParen] = evaluate(miniArray);
-    			for(int i = posStartParen+1; i <= posFinParen; i++) {
-    				remove(expression, posStartParen+1);
-    			}
-    			position = 0;
-    			posStartParen = -1;
-    			posFinParen = -1;
-    		}
-    		position++;
-    	}while(position < expression.length);
+    			super.fullCellText().substring(2, super.fullCellText().length() - 2).split(" ");
     	return Double.parseDouble(evaluate(expression));
 	}
 	
@@ -91,6 +72,10 @@ public class FormulaCell extends RealCell{
     		answer = term1 - term2;
     	}
     	return answer + "";
+    }
+    
+    public String abbreviatedCellText() {
+    	return (this.getDoubleValue() + "          ").substring(0, 10);
     }
 
 }
