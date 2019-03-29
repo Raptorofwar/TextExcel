@@ -15,7 +15,12 @@ public class FormulaCell extends RealCell{
 		
     	String[] expression =
     			super.fullCellText().substring(2, super.fullCellText().length() - 2).split(" ");
-    	return Double.parseDouble(evaluate(expression));
+    	if(super.fullCellText().equalsIgnoreCase("sum") ||
+    			super.fullCellText().equalsIgnoreCase("avg")){
+    		
+    	}else {
+    		return Double.parseDouble(evaluate(expression));
+    	}
 	}
 	
     private String evaluate(String[] expression) {
