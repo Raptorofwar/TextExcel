@@ -25,7 +25,7 @@ public class FormulaCell extends RealCell{
 	
     private String evaluate(String[] expression) {
     	
-   	//takes in an expression in an array, returns the final result as an improper frac
+   	//takes in an expression in an array, returns the final result
         	
         String[] evaluating = expression;
         for(int i = 0; i<evaluating.length; i++) {
@@ -63,6 +63,9 @@ public class FormulaCell extends RealCell{
     }
     
     private String operation(String a, String b, String c) {
+    	
+    	//Does operation
+    	
     	double term1 = Double.parseDouble(a);
     	char operator = b.charAt(0);
     	double term2 = Double.parseDouble(c);
