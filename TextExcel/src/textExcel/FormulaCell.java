@@ -2,11 +2,15 @@ package textExcel;
 
 public class FormulaCell extends RealCell{
 	
-	public FormulaCell(String input) {
+	private Spreadsheet s;
+	
+	public FormulaCell(String input, Spreadsheet s) {
 		
 		//only the input text is useful here; the actual value inputted is just filler
 		
 		super(input, -1);
+		
+		this.s = s;
 	}
 	
 	public double getDoubleValue(){
@@ -14,10 +18,16 @@ public class FormulaCell extends RealCell{
 		//Takes in entire formula, returns double equivalent
 		
     	String[] expression =
-    			super.fullCellText().substring(2, super.fullCellText().length() - 2).split(" ");
-    	if(super.fullCellText().equalsIgnoreCase("sum") ||
-    			super.fullCellText().equalsIgnoreCase("avg")){
+    			super.fullCellText().substring(2, super.fullCellText().length() - 2).toUpperCase().split(" ");
+    	
+    	if(expression[0].equals("SUM") || expression[0].equals("AVG")){
+    		String term1 = expression[1].substring(0, expression[1].indexOf("-"));
+    		String term2 = expression[1].substring(expression[1].indexOf("-") + 1);
     		
+    		int top = Integer.parseInt(term1.substring(0, 1)) - 'A';
+    		int left = Integer.parseInt(expression[1].substring(1, expression[1].indexOf("-")));
+    		int bottom = Integer.parseInt(term2.substring(0, 1)) - 'A';
+    		int right = Integer.parseInt(expression[1].substring());
     	}else {
     		return Double.parseDouble(evaluate(expression));
     	}
