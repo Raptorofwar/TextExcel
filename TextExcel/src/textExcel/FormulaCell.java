@@ -24,10 +24,24 @@ public class FormulaCell extends RealCell{
     		String term1 = expression[1].substring(0, expression[1].indexOf("-"));
     		String term2 = expression[1].substring(expression[1].indexOf("-") + 1);
     		
-    		int top = Integer.parseInt(term1.substring(0, 1)) - 'A';
-    		int left = Integer.parseInt(expression[1].substring(1, expression[1].indexOf("-")));
-    		int bottom = Integer.parseInt(term2.substring(0, 1)) - 'A';
-    		int right = Integer.parseInt(expression[1].substring());
+    		int top = Integer.parseInt(term1.substring(1));
+    		int left = Integer.parseInt(term1.substring(0, 1)) - 'A';
+    		int bottom = Integer.parseInt(term2.substring(1));
+    		int right = Integer.parseInt(term2.substring(0, 1)) - 'A';
+    		
+    		int ans = 0;
+    		
+    		for(int row = left; row <= right; row++) {
+    			for(int col = top; top <= bottom; top++) {
+    				ans += ((RealCell) s.getCell(new SpreadsheetLocation(row, col))).getDoubleValue();
+    			}
+    		}
+    		
+    		if(expression[0].equals("AVG")) {
+    			ans /= ((bottom - top + 1) * (right - left + 1));
+    		}
+    		return ans;
+    		
     	}else {
     		return Double.parseDouble(evaluate(expression));
     	}
