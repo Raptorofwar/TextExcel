@@ -89,8 +89,11 @@ public class FormulaCell extends RealCell{
     private String operation(String a, String b, String c) {
     	
     	//Does operation
-    	
-    	double term1 = Double.parseDouble(a);
+    	if(a.charAt(1) > 64) {
+    		
+    	}else {
+    		double term1 = Double.parseDouble(a);
+    	}
     	char operator = b.charAt(0);
     	double term2 = Double.parseDouble(c);
     	double answer = 0;
