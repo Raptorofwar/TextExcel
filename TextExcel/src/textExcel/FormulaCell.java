@@ -94,14 +94,14 @@ public class FormulaCell extends RealCell{
     	
     	if(a.length() > 1 && isALetter(a.charAt(0))) {
     		term1 = ((RealCell) s.getCell(new SpreadsheetLocation(a.charAt(0) - 'A',
-    				Integer.parseInt(a.substring(1))))).getDoubleValue();
+    				Integer.parseInt(a.substring(1)) - 1))).getDoubleValue();
     	}else {
     		term1 = Double.parseDouble(a);
     	}
     	
     	if(c.length() > 1 && isALetter(c.charAt(0))) {
     		term2 = ((RealCell) s.getCell(new SpreadsheetLocation((c.charAt(0) - 'A'),
-    				Integer.parseInt(c.substring(1))))).getDoubleValue();
+    				Integer.parseInt(c.substring(1)) - 1))).getDoubleValue();
     	}else {
     		term2 = Double.parseDouble(c);
     	}
