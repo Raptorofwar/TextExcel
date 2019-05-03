@@ -89,13 +89,25 @@ public class FormulaCell extends RealCell{
     private String operation(String a, String b, String c) {
     	
     	//Does operation
-    	if(a.charAt(1) > 64) {
-    		
+    	double term1;
+    	double term2;
+    	
+    	if(a.length() > 1 && isALetter(a.charAt(0))) {
+    		term1 = ((RealCell) s.getCell(new SpreadsheetLocation(a.charAt(0) - 'A',
+    				Integer.parseInt(a.substring(1))))).getDoubleValue();
     	}else {
-    		double term1 = Double.parseDouble(a);
+    		term1 = Double.parseDouble(a);
     	}
+    	
+    	if(c.length() > 1 && isALetter(c.charAt(0))) {
+    		term2 = ((RealCell) s.getCell(new SpreadsheetLocation((c.charAt(0) - 'A'),
+    				Integer.parseInt(c.substring(1))))).getDoubleValue();
+    	}else {
+    		term2 = Double.parseDouble(c);
+    	}
+    	
     	char operator = b.charAt(0);
-    	double term2 = Double.parseDouble(c);
+    	term2 = Double.parseDouble(c);
     	double answer = 0;
     	if(operator == '*') {
     		answer = term1 * term2;
@@ -111,6 +123,14 @@ public class FormulaCell extends RealCell{
     
     public String abbreviatedCellText() {
     	return (this.getDoubleValue() + "          ").substring(0, 10);
+    }
+    
+    public static boolean isALetter(char x) {
+    	if((x >= 65 && x <=90) || (x >= 97 && x <= 122)) {
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 
 }

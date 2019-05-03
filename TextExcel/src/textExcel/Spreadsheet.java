@@ -35,7 +35,7 @@ public class Spreadsheet implements Grid
     					= new PercentCell(command.substring(command.indexOf(" = ") + 3));
     		}else if (command.indexOf("(") > -1) {
     			sheet[loc.getRow()][loc.getCol()]
-    					=new FormulaCell(command.substring(command.indexOf(" = ") + 3));
+    					=new FormulaCell(command.substring(command.indexOf(" = ") + 3), this);
     		}else {
     			sheet[loc.getRow()][loc.getCol()]
     					=new ValueCell(command.substring(command.indexOf(" = ") + 3));
