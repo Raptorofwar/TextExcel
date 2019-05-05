@@ -9,6 +9,8 @@ public abstract class RealCell implements Cell{
 	}
 	
 	public String abbreviatedCellText() {
+		//returns first 10 chars. for grid use.
+		
 		return (this.getDoubleValue() + "          ").substring(0, 10);	
 	}
 	
@@ -18,6 +20,8 @@ public abstract class RealCell implements Cell{
 	}
 	
 	public double getDoubleValue() {
+		
+		//GASP! THE VALUE!
 		return Double.parseDouble(valueText);
 	}
 }

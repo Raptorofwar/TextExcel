@@ -7,9 +7,11 @@ public class PercentCell extends RealCell{
 	}
 	
 	public String fullCellText() {
+		
+		//returns temp as a decimal, with all trailing zeroes.
+		
 		String temp = 
-				super.fullCellText().substring(0,super.fullCellText().indexOf("%"));
-		temp = "000" + temp;
+				"000" + super.fullCellText().substring(0,super.fullCellText().indexOf("%"));
 		if(temp.indexOf(".") == -1) {
 			temp += ".";
 		}
@@ -21,10 +23,6 @@ public class PercentCell extends RealCell{
 			temp = temp.substring(1);
 		}
 		return temp;
-	}
-	
-	public double getDoubleValue() {
-		return Double.parseDouble(this.fullCellText());
 	}
 	
 	public String abbreviatedCellText() {

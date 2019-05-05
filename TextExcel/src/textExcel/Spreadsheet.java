@@ -95,6 +95,8 @@ public class Spreadsheet implements Grid
 	}
 	
 	public void clearAll(Cell[][] grid) {
+		
+		//self explanatory
 		for(int rows = 0; rows < getRows(); rows++) {
 			for(int cols = 0; cols < getCols(); cols++) {
 				grid[rows][cols] = new EmptyCell();

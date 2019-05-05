@@ -13,7 +13,7 @@ public class FormulaCell extends RealCell{
 	
 	public double getDoubleValue(){
     	
-		//Takes in entire formula, returns double equivalent
+		//Takes in entire formula (full cell text) , returns double equivalent
 		
     	String[] expression =
     			this.fullCellText().substring(2, this.fullCellText().length() - 2).toUpperCase().split(" ");
@@ -113,6 +113,8 @@ public class FormulaCell extends RealCell{
     }
     
     public static boolean isALetter(char x) {
+    	
+    	//tests if x is a letter, capital or lowercase
     	if((x >= 65 && x <=90) || (x >= 97 && x <= 122)) {
     		return true;
     	}else {

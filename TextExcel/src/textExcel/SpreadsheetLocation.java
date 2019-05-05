@@ -9,25 +9,24 @@ public class SpreadsheetLocation implements Location
 	private int colNum = 0;
 	
     @Override
-    public int getRow()
-    {
-        // TODO Auto-generated method stub
+    public int getRow() {
         return rowNum;
     }
 
     @Override
-    public int getCol(){
+    public int getCol() {
         return colNum;
     }
     
-    public SpreadsheetLocation(String cellName){
+    public SpreadsheetLocation(String cellName) {
+    	//constructor; gets you row and column
     	String command = cellName.toUpperCase();
     	colNum = command.charAt(0) - ('A');
     	rowNum = Integer.parseInt(command.substring(1)) - 1;
     }
     
-    public SpreadsheetLocation(int row, int col){
-    	//retained for easy coding?
+    public SpreadsheetLocation(int row, int col) {
+    	//retained for easy coding of certain things?
     	rowNum = row;
     	colNum = col;
     }
