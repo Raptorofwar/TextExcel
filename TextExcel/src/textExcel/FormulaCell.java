@@ -5,10 +5,8 @@ public class FormulaCell extends RealCell{
 	private Spreadsheet s;
 	
 	public FormulaCell(String input, Spreadsheet s) {
-		
-		//only the input text is useful here; the actual value inputted is just filler
-		
-		super(input, -1);
+				
+		super(input);
 		
 		this.s = s;
 	}
@@ -18,28 +16,23 @@ public class FormulaCell extends RealCell{
 		//Takes in entire formula, returns double equivalent
 		
     	String[] expression =
-    			super.fullCellText().substring(2, super.fullCellText().length() - 2).toUpperCase().split(" ");
+    			this.fullCellText().substring(2, this.fullCellText().length() - 2).toUpperCase().split(" ");
     	
     	if(expression[0].equals("SUM") || expression[0].equals("AVG")){
-    		String term1 = expression[1].substring(0, expression[1].indexOf("-"));
-    		String term2 = expression[1].substring(expression[1].indexOf("-") + 1);
+    		SpreadsheetLocation term1 = new SpreadsheetLocation(expression[1].substring(0, expression[1].indexOf("-")));
+    		SpreadsheetLocation term2 = new SpreadsheetLocation(expression[1].substring(expression[1].indexOf("-") + 1));
+    		double ans = 0;
     		
-    		int top = Integer.parseInt(term1.substring(1));
-    		int left = Integer.parseInt(term1.substring(0, 1)) - 'A';
-    		int bottom = Integer.parseInt(term2.substring(1));
-    		int right = Integer.parseInt(term2.substring(0, 1)) - 'A';
-    		
-    		int ans = 0;
-    		
-    		for(int row = left; row <= right; row++) {
-    			for(int col = top; top <= bottom; top++) {
+    		for(int row = term1.getRow(); row <= term2.getRow(); row++) {
+    			for(int col = term1.getCol(); col <= term2.getCol(); col++) {
     				ans += ((RealCell) s.getCell(new SpreadsheetLocation(row, col))).getDoubleValue();
     			}
     		}
     		
     		if(expression[0].equals("AVG")) {
-    			ans /= ((bottom - top + 1) * (right - left + 1));
+    			ans /= ((Math.abs(term1.getRow() - term2.getRow()) + 1) * (Math.abs(term1.getCol() - term2.getCol()) + 1));
     		}
+    		
     		return ans;
     		
     	}else {
@@ -93,22 +86,20 @@ public class FormulaCell extends RealCell{
     	double term2;
     	
     	if(a.length() > 1 && isALetter(a.charAt(0))) {
-    		term1 = ((RealCell) s.getCell(new SpreadsheetLocation(a.charAt(0) - 'A',
-    				Integer.parseInt(a.substring(1)) - 1))).getDoubleValue();
+    		term1 = ((RealCell) s.getCell(new SpreadsheetLocation(a))).getDoubleValue();
     	}else {
     		term1 = Double.parseDouble(a);
     	}
     	
     	if(c.length() > 1 && isALetter(c.charAt(0))) {
-    		term2 = ((RealCell) s.getCell(new SpreadsheetLocation((c.charAt(0) - 'A'),
-    				Integer.parseInt(c.substring(1)) - 1))).getDoubleValue();
+    		term2 = ((RealCell) s.getCell(new SpreadsheetLocation(c))).getDoubleValue();
     	}else {
     		term2 = Double.parseDouble(c);
     	}
     	
     	char operator = b.charAt(0);
-    	term2 = Double.parseDouble(c);
     	double answer = 0;
+    	
     	if(operator == '*') {
     		answer = term1 * term2;
     	}else if(operator == '/') {
@@ -119,10 +110,6 @@ public class FormulaCell extends RealCell{
     		answer = term1 - term2;
     	}
     	return answer + "";
-    }
-    
-    public String abbreviatedCellText() {
-    	return (this.getDoubleValue() + "          ").substring(0, 10);
     }
     
     public static boolean isALetter(char x) {

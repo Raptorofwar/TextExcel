@@ -2,17 +2,14 @@ package textExcel;
 
 public abstract class RealCell implements Cell{
 	
-	private double value;
 	private String valueText;
 
-	public RealCell(String text, double x) {
+	public RealCell(String text) {
 		valueText = text;
-		value = x;
 	}
 	
 	public String abbreviatedCellText() {
-		// text for spreadsheet cell display, must be exactly length 10
-		return (value + "          ").substring(0, 10);
+		return (this.getDoubleValue() + "          ").substring(0, 10);	
 	}
 	
 	public String fullCellText() {
@@ -21,6 +18,6 @@ public abstract class RealCell implements Cell{
 	}
 	
 	public double getDoubleValue() {
-		return value;
+		return Double.parseDouble(valueText);
 	}
 }
