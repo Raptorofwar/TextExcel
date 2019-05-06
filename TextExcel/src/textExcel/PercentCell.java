@@ -29,4 +29,8 @@ public class PercentCell extends RealCell{
 		// text for spreadsheet cell display, must be exactly length 10
 		return (super.fullCellText() + "          ").substring(0, 10);
 	}
+	
+	public double getDoubleValue() {
+		return Double.parseDouble(this.fullCellText());
+	}
 }

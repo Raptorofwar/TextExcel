@@ -1,6 +1,6 @@
 package textExcel;
 
-public abstract class RealCell implements Cell{
+public abstract class RealCell implements Cell, Comparable{
 	
 	private String valueText;
 
@@ -22,6 +22,16 @@ public abstract class RealCell implements Cell{
 	public double getDoubleValue() {
 		
 		//GASP! THE VALUE!
-		return Double.parseDouble(valueText);
+		return Double.parseDouble(this.fullCellText());
+	}
+	
+	public int compareTo(Object x) {
+		if(this.getDoubleValue() == ((RealCell) x).getDoubleValue()) {
+			return 0;
+		}else if (this.getDoubleValue() > ((RealCell) x).getDoubleValue()){
+			return 1;
+		}else {
+			return -1;
+		}
 	}
 }

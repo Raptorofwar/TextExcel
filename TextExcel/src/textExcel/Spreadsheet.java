@@ -1,5 +1,7 @@
 package textExcel;
 
+import java.util.ArrayList;
+
 public class Spreadsheet implements Grid
 {
 
@@ -28,20 +30,71 @@ public class Spreadsheet implements Grid
     	}else if (command.indexOf(" = ") > 0){
 			loc = new SpreadsheetLocation(command.substring(0, command.indexOf(" = ")));
     		if(command.indexOf("\"") > -1) {
+    			//make a text cell
     			sheet[loc.getRow()][loc.getCol()]
     					= new TextCell(command.substring(command.indexOf(" = ") + 3));
     		}else if(command.indexOf("%") > -1) {
+    			//make a percent cell
     			sheet[loc.getRow()][loc.getCol()]
     					= new PercentCell(command.substring(command.indexOf(" = ") + 3));
     		}else if (command.indexOf("(") > -1) {
+    			//make a formula cell
     			sheet[loc.getRow()][loc.getCol()]
     					=new FormulaCell(command.substring(command.indexOf(" = ") + 3), this);
     		}else {
+    			//make a value cell
     			sheet[loc.getRow()][loc.getCol()]
     					=new ValueCell(command.substring(command.indexOf(" = ") + 3));
     		}
 			return this.getGridText();
-    	}else {
+    	}else if(command.length() > 3 && (command.substring(0,5).equalsIgnoreCase("sorta") || command.substring(0,5).equalsIgnoreCase("sortd"))) {
+			//SORTING! gah.
+			ArrayList<Comparable> terms = new ArrayList<Comparable>();
+			SpreadsheetLocation term1 = 
+					new SpreadsheetLocation(command.substring(6, command.indexOf("-")));
+			SpreadsheetLocation term2 = 
+					new SpreadsheetLocation(command.substring(command.indexOf("-") + 1));
+			
+			for(int row  = term1.getRow(); row <= term2.getRow(); row++) {
+				for(int col = term1.getCol(); col <= term2.getCol(); col++) {
+					terms.add((Comparable) sheet[row][col]);
+				}
+			}
+			
+			int pos = 1;
+			
+			while(pos < terms.size()) {
+				for(int i = 0; i < pos; i++) {
+					if(terms.get(pos).compareTo(terms.get(i)) < 1) {
+						terms.add(i, terms.remove(pos));
+						i = pos;
+					}
+				}
+				pos++;
+			}
+			
+			int returnPos;
+			
+			if(command.substring(0,5).equalsIgnoreCase("sorta")) {
+				returnPos = 0;
+				for(int row  = term1.getRow(); row <= term2.getRow(); row++) {
+    				for(int col = term1.getCol(); col <= term2.getCol(); col++) {
+    					sheet[row][col] = (Cell) terms.get(returnPos);
+    					returnPos++;
+    				}
+    			}
+			}else {
+				returnPos = terms.size() - 1;
+				for(int row  = term1.getRow(); row <= term2.getRow(); row++) {
+    				for(int col = term1.getCol(); col <= term2.getCol(); col++) {
+    					sheet[row][col] = (Cell) terms.get(returnPos);
+    					returnPos--;
+    				}
+    			}
+			}
+			return this.getGridText();
+			
+		}else {
     			loc = new SpreadsheetLocation(command.substring(0));
     			return this.getCell(loc).fullCellText();
     	}
