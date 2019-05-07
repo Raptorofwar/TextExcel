@@ -30,7 +30,4 @@ public class PercentCell extends RealCell{
 		return (super.fullCellText() + "          ").substring(0, 10);
 	}
 	
-	public double getDoubleValue() {
-		return Double.parseDouble(this.fullCellText());
-	}
 }
