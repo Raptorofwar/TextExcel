@@ -33,14 +33,14 @@ public class Spreadsheet implements Grid
     			//make a text cell
     			sheet[loc.getRow()][loc.getCol()]
     					= new TextCell(command.substring(command.indexOf(" = ") + 3));
-    		}else if(command.indexOf("%") > -1) {
-    			//make a percent cell
-    			sheet[loc.getRow()][loc.getCol()]
-    					= new PercentCell(command.substring(command.indexOf(" = ") + 3));
     		}else if (command.indexOf("(") > -1) {
     			//make a formula cell
     			sheet[loc.getRow()][loc.getCol()]
     					=new FormulaCell(command.substring(command.indexOf(" = ") + 3), this);
+    		}else if(command.indexOf("%") > -1) {
+    			//make a percent cell
+    			sheet[loc.getRow()][loc.getCol()]
+    					= new PercentCell(command.substring(command.indexOf(" = ") + 3));
     		}else {
     			//make a value cell
     			sheet[loc.getRow()][loc.getCol()]

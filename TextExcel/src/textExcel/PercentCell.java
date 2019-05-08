@@ -7,14 +7,17 @@ public class PercentCell extends RealCell{
 	}
 	
 	public String fullCellText() {
-		return Double.parseDouble
-				(super.fullCellText().substring
-						(0,super.fullCellText().length() - 1)) * .01 + "";
+		//returns getDouble b
+		return this.getDoubleValue() + "";
 	}
 	
 	public String abbreviatedCellText() {
 		// text for spreadsheet cell display, must be exactly length 10
 		return (super.fullCellText() + "          ").substring(0, 10);
+	}
+	
+	public double getDoubleValue() {
+		return Double.parseDouble(super.fullCellText().substring(0, super.fullCellText().length() - 1)) * .01;
 	}
 	
 }
